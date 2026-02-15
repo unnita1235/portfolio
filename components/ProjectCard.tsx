@@ -36,16 +36,34 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         >
             {/* TOP — Image container */}
             <div className="relative h-48 overflow-hidden rounded-t-xl bg-[var(--bg-card)]">
-                {showFallback ? (
-                    <ProjectImageFallback name={project.name} category={project.category} />
+                {project.liveUrl ? (
+                    <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="block w-full h-full relative cursor-pointer">
+                        {showFallback ? (
+                            <ProjectImageFallback name={project.name} category={project.category} />
+                        ) : (
+                            <Image
+                                src={project.images[0]}
+                                alt={project.name}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                onError={() => setImageError(true)}
+                            />
+                        )}
+                    </Link>
                 ) : (
-                    <Image
-                        src={project.images[0]}
-                        alt={project.name}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        onError={() => setImageError(true)}
-                    />
+                    <>
+                        {showFallback ? (
+                            <ProjectImageFallback name={project.name} category={project.category} />
+                        ) : (
+                            <Image
+                                src={project.images[0]}
+                                alt={project.name}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                onError={() => setImageError(true)}
+                            />
+                        )}
+                    </>
                 )}
             </div>
 
@@ -53,7 +71,21 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
             <div className="bg-[var(--bg-card)] p-5 rounded-b-xl flex flex-col gap-3 flex-1">
                 {/* Row 1: Name and Category */}
                 <div className="flex justify-between items-start">
-                    <h3 className="font-semibold text-lg text-[var(--text)]">{project.name}</h3>
+                    {project.liveUrl ? (
+                        <Link
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group/link shrink-0"
+                        >
+                            <h3 className="font-semibold text-lg text-[var(--text)] group-hover/link:text-[var(--accent)] transition-colors flex items-center gap-1">
+                                {project.name}
+                                <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                            </h3>
+                        </Link>
+                    ) : (
+                        <h3 className="font-semibold text-lg text-[var(--text)]">{project.name}</h3>
+                    )}
                     <span className={`pill text-xs px-2 py-0.5 rounded-full ${categoryColors[project.category]}`}>
                         {getCategoryLabel(project.category)}
                     </span>
