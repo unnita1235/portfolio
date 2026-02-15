@@ -27,7 +27,7 @@ export default function About() {
                             style={{ boxShadow: '0 0 60px rgba(99,102,241,0.12)' }}
                         >
                             <Image
-                                src="/avatar.jpg"
+                                src="/avatar.svg"
                                 alt="Unni T A"
                                 width={320}
                                 height={320}
