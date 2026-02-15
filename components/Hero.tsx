@@ -1,23 +1,27 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
+import { ChevronDown, ArrowRight, Download } from 'lucide-react';
 import Link from 'next/link';
 
-const containerVariants = {
+const containerVariants: Variants = {
     hidden: {},
     visible: {
         transition: {
-            staggerChildren: 0.12,
+            staggerChildren: 0.1,
         },
     },
 };
 
-const itemVariants = {
-    hidden: { opacity: 0, y: 24 },
+const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
+        transition: {
+            duration: 0.4,
+            ease: [0.22, 1, 0.36, 1], // ease-standard
+        },
     },
 };
 
@@ -25,14 +29,14 @@ export default function Hero() {
     return (
         <section
             id="hero"
-            className="min-h-screen flex flex-col justify-center items-start container mx-auto px-6 relative"
+            className="min-h-[90vh] flex flex-col justify-center items-start container-tight relative overflow-hidden"
         >
-            {/* Background Gradient */}
+            {/* Background Aesthetic */}
             <div
                 className="absolute inset-0 -z-10 pointer-events-none"
                 style={{
                     background:
-                        'radial-gradient(ellipse 80% 50% at 30% 50%, rgba(99,102,241,0.07) 0%, transparent 60%)',
+                        'radial-gradient(circle at 20% 50%, hsla(var(--accent), 0.08) 0%, transparent 50%)',
                 }}
             />
 
@@ -40,84 +44,75 @@ export default function Hero() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="flex flex-col items-start"
+                className="z-10"
             >
-                {/* Eyebrow badge */}
+                {/* Micro-proof Strip */}
                 <motion.div
                     variants={itemVariants}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
-                    className="inline-flex items-center gap-2 text-sm text-green-400 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-1"
+                    className="inline-flex items-center gap-3 bg-accent/5 border border-accent/10 px-3 py-1 rounded-full mb-6"
                 >
-                    <span className="animate-pulse">●</span> Open to Work · Kerala, India
+                    <span className="flex h-2 w-2 rounded-full bg-accent animate-pulse" />
+                    <span className="text-xs font-medium text-accent uppercase tracking-wider">
+                        7+ Production-Ready Projects
+                    </span>
                 </motion.div>
 
-                {/* Heading */}
+                {/* Main Heading */}
                 <motion.h1
                     variants={itemVariants}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
-                    className="text-6xl md:text-8xl font-bold tracking-tight text-[var(--text)] leading-none mt-6"
+                    className="text-5xl md:text-7xl font-outfit font-semibold tracking-tight text-text leading-[1.1]"
                 >
-                    Unni T A
+                    Building the <br />
+                    <span className="text-accent underline decoration-accent/20 underline-offset-8">Production GenAI</span> Stack
                 </motion.h1>
 
                 {/* Subheading */}
-                <motion.h2
-                    variants={itemVariants}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
-                    className="text-2xl md:text-3xl text-[var(--text-muted)] mt-3"
-                >
-                    Full-Stack AI Engineer
-                </motion.h2>
-
-                {/* Tagline */}
                 <motion.p
                     variants={itemVariants}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
-                    className="font-mono text-lg text-[var(--text-muted)] mt-4"
+                    className="text-lg md:text-xl text-text-muted mt-8 max-w-2xl leading-relaxed"
                 >
-                    Architecting at the intersection of Next.js 15 and AI-driven automation.
+                    Full-Stack AI Engineer specializing in <span className="text-text font-medium">Next.js 15</span> and <span className="text-text font-medium">RAG Architectures</span>. I build systems that move beyond tutorials into real-world performance.
                 </motion.p>
 
-                {/* CTA Buttons */}
+                {/* CTAs */}
                 <motion.div
                     variants={itemVariants}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
-                    className="flex flex-row gap-4 mt-8"
+                    className="flex flex-wrap gap-4 mt-10"
                 >
                     <Link
                         href="#projects"
-                        className="bg-[var(--accent)] text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition scroll-smooth"
+                        className="group bg-accent text-white px-8 py-3.5 rounded-full font-medium hover:opacity-90 transition-all flex items-center gap-2 shadow-lg shadow-accent/20"
                     >
-                        View Projects
+                        Explore Shipped Work
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                     <a
                         href="/resume.pdf"
                         download
-                        target="_blank"
-                        className="border border-[var(--border)] text-[var(--text)] px-6 py-3 rounded-lg font-medium hover:border-[var(--border-hover)] transition"
+                        className="flex items-center gap-2 border border-border text-text px-8 py-3.5 rounded-full font-medium hover:border-border-hover hover:bg-bg-card transition-all"
                     >
                         Download CV
+                        <Download className="w-4 h-4" />
                     </a>
                 </motion.div>
             </motion.div>
 
-            {/* Scroll indicator */}
+            {/* Scroll Indicator */}
             <motion.div
-                className="absolute bottom-8 left-1/2 -translate-x-1/2"
+                className="absolute bottom-12 left-0"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 1 }}
+                transition={{ delay: 1 }}
             >
-                <motion.div
-                    animate={{ y: [0, 8, 0] }}
-                    transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    }}
-                >
-                    <ChevronDown className="w-8 h-8 text-[var(--text-muted)]" />
-                </motion.div>
+                <div className="flex items-center gap-3 text-sm text-text-muted font-medium">
+                    <motion.div
+                        animate={{ y: [0, 6, 0] }}
+                        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    >
+                        <ChevronDown className="w-5 h-5" />
+                    </motion.div>
+                    <span>Scroll to explore</span>
+                </div>
             </motion.div>
         </section>
     );

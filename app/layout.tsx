@@ -1,14 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: 'swap',
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
-  description: "Portfolio website built with Next.js 15",
+  title: "Unni T A | Full-Stack AI Engineer",
+  description: "Portfolio of Unni T A - Specializing in Next.js 15, AI Integration, and Production-Grade Systems.",
 };
 
 export default function RootLayout({
@@ -17,13 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+      <body className="font-inter">
+        {children}
       </body>
     </html>
   );

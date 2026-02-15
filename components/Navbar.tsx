@@ -8,6 +8,7 @@ import { Menu, X } from 'lucide-react';
 const navLinks = [
     { name: 'About', href: '#about' },
     { name: 'Projects', href: '#projects' },
+    { name: 'Capabilities', href: '#capabilities' },
     { name: 'Skills', href: '#skills' },
     { name: 'Contact', href: '#contact' },
 ];
@@ -17,17 +18,14 @@ export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('');
 
-    // Handle scroll effect
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            setIsScrolled(window.scrollY > 20);
         };
-
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Handle active section tracking
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -37,7 +35,7 @@ export default function Navbar() {
                     }
                 });
             },
-            { threshold: 0.5 }
+            { threshold: 0.3, rootMargin: '-64px 0px 0px 0px' }
         );
 
         const sections = document.querySelectorAll('section');
@@ -46,7 +44,6 @@ export default function Navbar() {
         return () => sections.forEach((section) => observer.unobserve(section));
     }, []);
 
-    // Prevent scroll when mobile menu is open
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -55,44 +52,39 @@ export default function Navbar() {
         }
     }, [isOpen]);
 
-    const toggleMenu = () => setIsOpen(!isOpen);
-
     return (
-        <motion.header
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'backdrop-blur-md border-b border-[var(--border)] bg-[var(--bg)]/80' : 'bg-transparent'
+        <header
+            className={`fixed top-0 w-full z-50 transition-all duration-300 h-16 flex items-center ${isScrolled ? 'backdrop-blur-md border-b border-border bg-bg/80' : 'bg-transparent'
                 }`}
         >
-            <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-                {/* Logo */}
+            <div className="container-wide flex items-center justify-between w-full">
                 <Link
                     href="#hero"
-                    className="text-xl font-semibold tracking-wide hover:text-[var(--accent)] transition-colors"
-                    onClick={() => {
-                        setActiveSection('hero');
-                        setIsOpen(false);
-                    }}
+                    className="text-xl font-outfit font-semibold tracking-tight hover:text-accent transition-colors"
+                    onClick={() => setIsOpen(false)}
                 >
                     Unni T A
                 </Link>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden md:flex space-x-8">
+                <nav className="hidden md:flex items-center gap-8">
                     {navLinks.map((link) => {
                         const isActive = activeSection === link.href.substring(1);
                         return (
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className={`text-sm font-medium transition-colors ${isActive
-                                        ? 'text-[var(--accent)] underline underline-offset-4'
-                                        : 'text-[var(--text-muted)] hover:text-[var(--text)]'
+                                className={`text-sm font-medium transition-colors relative py-1 ${isActive ? 'text-accent' : 'text-text-muted hover:text-text'
                                     }`}
-                                onClick={() => setActiveSection(link.href.substring(1))}
                             >
                                 {link.name}
+                                {isActive && (
+                                    <motion.div
+                                        layoutId="nav-underline"
+                                        className="absolute -bottom-1 left-0 right-0 h-0.5 bg-accent rounded-full"
+                                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                                    />
+                                )}
                             </Link>
                         );
                     })}
@@ -100,9 +92,10 @@ export default function Navbar() {
 
                 {/* Mobile Menu Button */}
                 <button
-                    className="md:hidden p-2 text-[var(--text)] focus:outline-none"
-                    onClick={toggleMenu}
-                    aria-label="Toggle menu"
+                    className="md:hidden p-2 text-text focus-visible:ring-2 focus-visible:ring-accent rounded-md focus:outline-none"
+                    onClick={() => setIsOpen(!isOpen)}
+                    aria-label={isOpen ? "Close menu" : "Open menu"}
+                    aria-expanded={isOpen}
                 >
                     {isOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
@@ -112,11 +105,11 @@ export default function Navbar() {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ x: '100%', opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: '100%', opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="fixed inset-0 top-16 bg-[var(--bg)]/95 backdrop-blur-md z-40 md:hidden flex flex-col items-center justify-center space-y-8 h-[calc(100vh-4rem)]" // adjust for header height
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 top-16 bg-bg/98 backdrop-blur-xl z-40 md:hidden flex flex-col items-center justify-center gap-8 h-[calc(100vh-4rem)]"
                     >
                         {navLinks.map((link) => {
                             const isActive = activeSection === link.href.substring(1);
@@ -124,14 +117,9 @@ export default function Navbar() {
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className={`text-2xl font-medium transition-colors ${isActive
-                                            ? 'text-[var(--accent)] underline underline-offset-4'
-                                            : 'text-[var(--text-muted)] hover:text-[var(--text)]'
+                                    className={`text-2xl font-outfit font-medium transition-colors ${isActive ? 'text-accent' : 'text-text-muted'
                                         }`}
-                                    onClick={() => {
-                                        setIsOpen(false);
-                                        setActiveSection(link.href.substring(1));
-                                    }}
+                                    onClick={() => setIsOpen(false)}
                                 >
                                     {link.name}
                                 </Link>
@@ -140,6 +128,6 @@ export default function Navbar() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.header>
+        </header>
     );
 }
