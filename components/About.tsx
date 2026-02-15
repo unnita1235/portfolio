@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
-import { GraduationCap } from 'lucide-react';
+
 
 export default function About() {
     const { ref, inView } = useInView({
@@ -44,62 +44,42 @@ export default function About() {
                         className="w-full md:w-[60%]"
                     >
                         <div className="text-xs font-mono text-[var(--accent)] tracking-widest mb-3">
-                            ABOUT ME
+                            01. THE MISSION
                         </div>
                         <h2 className="text-3xl font-bold mb-6">
-                            Building AI-powered systems that actually ship.
+                            Engineering Intelligence into the Modern Web.
                         </h2>
 
-                        <p className="mb-4">
-                            I&apos;m a Full-Stack AI Engineer based in Kerala, India, with an
-                            MCA from APJ Abdul Kalam Technological University (2023). I build
-                            production-quality applications that integrate AI as core
-                            infrastructure — not as a surface-level feature.
+                        <p className="mb-4 text-lg leading-relaxed">
+                            I specialize in architecting intelligent systems where AI isn&apos;t just a feature, but the core infrastructure. Based in Kerala, India, I bridge the gap between complex backend logic and seamless, AI-driven user experiences.
                         </p>
 
-                        <p className="mb-6">
-                            In the past 7 months I&apos;ve shipped 7 projects with 5 live
-                            deployments, specializing in Next.js 15, TypeScript, LangChain,
-                            and Google Gemini. I work as an AI-assisted developer — using AI
-                            tools strategically to build faster, not as a substitute for
-                            engineering judgment.
+                        <p className="mb-6 leading-relaxed text-[var(--text-muted)]">
+                            My approach is defined by **Velocity-First Engineering** — leveraging advanced AI tools to accelerate development cycles while maintaining the rigorous precision of production-grade software. In 7 months, I have moved 7 distinct concepts into the build phase, with 5 production-ready deployments.
                         </p>
 
                         {/* Stats Row */}
                         <div className="flex gap-4 mt-6">
                             <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 text-center flex-1">
-                                <div className="text-2xl font-bold">7</div>
-                                <div className="text-sm text-[var(--text-muted)]">
-                                    Projects Shipped
+                                <div className="text-2xl font-bold text-[var(--text)]">7</div>
+                                <div className="text-[10px] uppercase font-bold tracking-wider text-[var(--accent)] mt-1">
+                                    Rapid Iterations
                                 </div>
                             </div>
                             <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 text-center flex-1">
-                                <div className="text-2xl font-bold">5</div>
-                                <div className="text-sm text-[var(--text-muted)]">
-                                    Live Deployments
+                                <div className="text-2xl font-bold text-[var(--text)]">5</div>
+                                <div className="text-[10px] uppercase font-bold tracking-wider text-[var(--accent)] mt-1">
+                                    Live Productions
                                 </div>
                             </div>
                             <div className="bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 text-center flex-1">
-                                <div className="text-2xl font-bold">2023</div>
-                                <div className="text-sm text-[var(--text-muted)]">
-                                    MCA Graduate
+                                <div className="text-2xl font-bold text-[var(--text)]">MCA</div>
+                                <div className="text-[10px] uppercase font-bold tracking-wider text-[var(--accent)] mt-1">
+                                    Technical Depth
                                 </div>
                             </div>
                         </div>
 
-                        {/* Education Card */}
-                        <div className="mt-6 bg-[var(--bg-card)] border border-[var(--border)] rounded-xl p-4 flex items-start gap-3">
-                            <GraduationCap className="w-6 h-6 mt-1 shrink-0" />
-                            <div>
-                                <div className="font-bold">
-                                    MCA — Master of Computer Applications
-                                </div>
-                                <div className="text-sm text-[var(--text-muted)]">
-                                    APJ Abdul Kalam Technological University · Kerala, India ·
-                                    2023
-                                </div>
-                            </div>
-                        </div>
 
                         {/* CV Link */}
                         <div className="mt-6">

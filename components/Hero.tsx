@@ -75,7 +75,7 @@ export default function Hero() {
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                     className="font-mono text-lg text-[var(--text-muted)] mt-4"
                 >
-                    7 projects. 7 months. 5 live deployments.
+                    Architecting at the intersection of Next.js 15 and AI-driven automation.
                 </motion.p>
 
                 {/* CTA Buttons */}
